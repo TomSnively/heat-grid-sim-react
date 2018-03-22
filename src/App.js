@@ -80,7 +80,7 @@ class App extends Component {
         cellArrays = initializeGridData(this.state.gridSize);
         this.state.cellArrays = cellArrays;
 
-        console.log('do we have state intervalSpeed?', this.state.intervalSpeed);
+        //console.log('do we have state intervalSpeed?', this.state.intervalSpeed);
 
         // set the first setTimeout. Each subsequent one gets set in the updateGridHTML function.
 //        window.setTimeout(function(){
