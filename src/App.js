@@ -5,6 +5,8 @@ import Inputs from './Inputs';
 import Grid from './Grid';
 
 function initializeGridData(size) {
+    console.log('initializeGridData, size = ', size);
+
     // initialize a 2-dimensional array
     let grid = new Array(size + 1);
     for (let i=0; i <= size + 1; i++) {
@@ -80,6 +82,11 @@ class App extends Component {
         cellArrays = initializeGridData(this.state.gridSize);
         this.state.cellArrays = cellArrays;
 
+        this.sizeChecked = this.sizeChecked.bind(this);
+        this.turnAllOn = this.turnAllOn.bind(this);
+        this.turnAllOff = this.turnAllOff.bind(this);
+        this.speedChanged = this.speedChanged.bind(this);
+
         //console.log('do we have state intervalSpeed?', this.state.intervalSpeed);
 
         // set the first setTimeout. Each subsequent one gets set in the updateGridHTML function.
@@ -89,11 +96,51 @@ class App extends Component {
 //        }, 1000 / this.state.intervalSpeed);
     }
 
+    sizeChecked(size){
+        console.log('in sizeChecked, size', size);
+        console.log('before', this.state.gridSize);
+        //this.state = {gridSize: size};
+        //console.log('after', this.state.gridSize);
+
+        let cellArrays = [];
+        cellArrays = initializeGridData(size);
+
+        this.setState({
+            gridSize: size,
+            heatIncrease: this.state.heatIncrease,
+            intervalSpeed: this.state.intervalSpeed,
+            maxHeat: this.state.maxHeat,
+            cellArrays: cellArrays
+        });
+    }
+
+    turnAllOn(){
+        console.log('in turnAllOn');
+        console.log(this.state.cellArrays);
+    }
+
+    turnAllOff(){
+        console.log('in turnAllOff');
+        console.log(this.state.cellArrays);
+    }
+
+    speedChanged(){
+        console.log('in speedChanged');
+        console.log(this.state.intervalSpeed);
+    }
+
+
+    // sizeChecked turnAllOn turnAllOff speedChanged
+
+
+
     render() {
+
+
         return (
             <div className='container'>
                 <Header />
-                <Inputs />
+                <Inputs sizeChecked={this.sizeChecked}/>
                 <Grid gridSize={this.state.gridSize} cellArrays={this.state.cellArrays}  />
 
             </div>

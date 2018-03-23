@@ -11,9 +11,7 @@ class Row extends Component {
         //console.log('Row render gridSize', this.props.gridSize);
         let cells = [];
         for (let i=0; i<this.props.gridSize; i++) {
-            //console.log('rowNumber is ', this.props.rowNumber);
-            //console.log('cellArrays = ', this.props.cellArrays);
-            //1console.log('single cellArray =', this.props.cellArrays[this.props.rowNumber][i].temperature);
+            //console.log('row render, this.props =  ', this.props);
 
             const cellTemperature =  this.props.cellArrays[this.props.rowNumber][i].temperature;
             //console.log(cellTemperature);
