@@ -107,9 +107,6 @@ class App extends Component {
 
         this.setState({
             gridSize: size,
-            heatIncrease: this.state.heatIncrease,
-            intervalSpeed: this.state.intervalSpeed,
-            maxHeat: this.state.maxHeat,
             cellArrays: cellArrays
         });
     }
@@ -127,10 +124,6 @@ class App extends Component {
         }
 
         this.setState({
-            gridSize: this.state.gridSize,
-            heatIncrease: this.state.heatIncrease,
-            intervalSpeed: this.state.intervalSpeed,
-            maxHeat: this.state.maxHeat,
             cellArrays: grid
         });
     }
@@ -151,11 +144,7 @@ class App extends Component {
         let intervalSpeed = document.getElementById('intervalSpeed').value;
 
         this.setState({
-            gridSize: this.state.gridSize,
-            heatIncrease: this.state.heatIncrease,
-            intervalSpeed: intervalSpeed,
-            maxHeat: this.state.maxHeat,
-            cellArrays: this.state.cellArrays
+            intervalSpeed: intervalSpeed
         });
     }
 
