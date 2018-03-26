@@ -83,6 +83,7 @@ class App extends Component {
         this.state.cellArrays = cellArrays;
 
         this.sizeChecked = this.sizeChecked.bind(this);
+        //this.setAllSelected = this.setAllSelected.bind(this);
         this.turnAllOn = this.turnAllOn.bind(this);
         this.turnAllOff = this.turnAllOff.bind(this);
         this.speedChanged = this.speedChanged.bind(this);
@@ -102,8 +103,7 @@ class App extends Component {
         //this.state = {gridSize: size};
         //console.log('after', this.state.gridSize);
 
-        let cellArrays = [];
-        cellArrays = initializeGridData(size);
+        let cellArrays = initializeGridData(size);
 
         this.setState({
             gridSize: size,
@@ -114,33 +114,61 @@ class App extends Component {
         });
     }
 
-    turnAllOn(){
-        console.log('in turnAllOn');
+    setAllSelected(boolean){
+        console.log('in turnAllOn/Off');
         console.log(this.state.cellArrays);
+
+        let size = this.state.gridSize;
+        let grid = this.state.cellArrays;
+        for (let i=1; i <= size; i++) {
+            for (let j=0; j <= size + 1; j++) {
+                grid[i][j].selected = boolean;
+            }
+        }
+
+        this.setState({
+            gridSize: this.state.gridSize,
+            heatIncrease: this.state.heatIncrease,
+            intervalSpeed: this.state.intervalSpeed,
+            maxHeat: this.state.maxHeat,
+            cellArrays: grid
+        });
     }
 
     turnAllOff(){
         console.log('in turnAllOff');
-        console.log(this.state.cellArrays);
+        this.setAllSelected(false);
+    }
+
+    turnAllOn(){
+        console.log('in turnAllOn');
+        this.setAllSelected(true);
     }
 
     speedChanged(){
         console.log('in speedChanged');
         console.log(this.state.intervalSpeed);
+        let intervalSpeed = document.getElementById('intervalSpeed').value;
+
+        this.setState({
+            gridSize: this.state.gridSize,
+            heatIncrease: this.state.heatIncrease,
+            intervalSpeed: intervalSpeed,
+            maxHeat: this.state.maxHeat,
+            cellArrays: this.state.cellArrays
+        });
     }
 
-
-    // sizeChecked turnAllOn turnAllOff speedChanged
-
-
-
     render() {
-
-
         return (
             <div className='container'>
                 <Header />
-                <Inputs sizeChecked={this.sizeChecked}/>
+                <Inputs
+                    sizeChecked={this.sizeChecked}
+                    turnAllOn={this.turnAllOn}
+                    turnAllOff={this.turnAllOff}
+                    speedChanged={this.speedChanged}
+                />
                 <Grid gridSize={this.state.gridSize} cellArrays={this.state.cellArrays}  />
 
             </div>
