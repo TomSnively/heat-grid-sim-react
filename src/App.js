@@ -27,46 +27,6 @@ function initializeGridData(size) {
     return grid;
 }
 
-function heatInterval(size, grid, intervalSpeed) {
-    console.log ('in heatInterval');
-    for (let i = 1; i <= size; i++) {
-        for (let j = 1; j <= size; j++) {
-            // First, increase temperature for all selected by 1 degree.
-            if (grid[i][j].selected) {
-                grid[i][j].temperature += this.state.heatIncrease;
-            }
-            // Then, save a copy of the temperatures so we can do averages based on them.
-            grid[i][j].lasttemp = grid[i][j].temperature;
-        }
-    }
-
-    // Now set new temperatures based on the average of your temperature and the cell on each side of you.
-    // Note: cells on the edge and on the corners have invisible cells off the grid whose temp is always 0.
-    for (let i = 1; i <= size; i++) {
-        for (let j = 1; j <= size; j++) {
-            grid[i][j].temperature = (
-                grid[i-1][j-1].lasttemp +
-                grid[i-1][j].lasttemp +
-                grid[i-1][j+1].lasttemp +
-                grid[i][j-1].lasttemp +
-                grid[i][j].lasttemp +
-                grid[i][j+1].lasttemp +
-                grid[i+1][j-1].lasttemp +
-                grid[i+1][j].lasttemp +
-                grid[i+1][j+1].lasttemp
-            ) / 9;
-
-            //let color = colorChooser(grid[i][j].temperature, maxHeat);
-            //let textColor = colorChooserText(grid[i][j].temperature, maxHeat);
-            //let cellID = 'r' + i + '-' + j;
-            //console.log(cellID);
-            //let cell = document.getElementById(cellID);
-            //cell.style.backgroundColor = color;
-            //cell.style.color = textColor;
-        }
-    }
-}
-
 class App extends Component {
     constructor(){
         super();
@@ -87,6 +47,7 @@ class App extends Component {
         this.turnAllOn = this.turnAllOn.bind(this);
         this.turnAllOff = this.turnAllOff.bind(this);
         this.speedChanged = this.speedChanged.bind(this);
+        this.heatInterval = this.heatInterval.bind(this);
 
         //console.log('do we have state intervalSpeed?', this.state.intervalSpeed);
 
@@ -96,6 +57,51 @@ class App extends Component {
 //            //updateGridHTML(this.state.gridSize);
 //        }, 1000 / this.state.intervalSpeed);
     }
+
+    heatInterval(size, grid, intervalSpeed, heatIncrease) {
+        console.log ('in heatInterval');
+        for (let i = 1; i <= size; i++) {
+            for (let j = 1; j <= size; j++) {
+                // First, increase temperature for all selected by 1 degree.
+                if (grid[i][j].selected) {
+                    grid[i][j].temperature += heatIncrease;
+                }
+                // Then, save a copy of the temperatures so we can do averages based on them.
+                grid[i][j].lasttemp = grid[i][j].temperature;
+            }
+        }
+
+        // Now set new temperatures based on the average of your temperature and the cell on each side of you.
+        // Note: cells on the edge and on the corners have invisible cells off the grid whose temp is always 0.
+        for (let i = 1; i <= size; i++) {
+            for (let j = 1; j <= size; j++) {
+                grid[i][j].temperature = (
+                    grid[i-1][j-1].lasttemp +
+                    grid[i-1][j].lasttemp +
+                    grid[i-1][j+1].lasttemp +
+                    grid[i][j-1].lasttemp +
+                    grid[i][j].lasttemp +
+                    grid[i][j+1].lasttemp +
+                    grid[i+1][j-1].lasttemp +
+                    grid[i+1][j].lasttemp +
+                    grid[i+1][j+1].lasttemp
+                ) / 9;
+
+                //let color = colorChooser(grid[i][j].temperature, maxHeat);
+                //let textColor = colorChooserText(grid[i][j].temperature, maxHeat);
+                //let cellID = 'r' + i + '-' + j;
+                //console.log(cellID);
+                //let cell = document.getElementById(cellID);
+                //cell.style.backgroundColor = color;
+                //cell.style.color = textColor;
+
+                this.setState({
+                    cellArrays: grid
+                });
+            }
+        }
+    }
+
 
     sizeChecked(size){
         console.log('in sizeChecked, size', size);
@@ -126,6 +132,8 @@ class App extends Component {
         this.setState({
             cellArrays: grid
         });
+
+        this.heatInterval(this.state.gridSize, this.state.cellArrays, this.state.intervalSpeed, this.state.heatIncrease);
     }
 
     turnAllOff(){
