@@ -100,6 +100,13 @@ class App extends Component {
                 });
             }
         }
+
+        // Set the time for the next update.
+        window.setTimeout(function(){
+            console.log('intervalSpeed', this.state.intervalSpeed);
+            this.heatInterval(size, grid, intervalSpeed, heatIncrease);
+        }.bind(this), 1000 / this.state.intervalSpeed);
+
     }
 
 
@@ -173,6 +180,11 @@ class App extends Component {
     }
 }
 
-
+/*
+// set the first setTimeout. Each subsequent one gets set in the updateGridHTML function.
+window.setTimeout(function(){
+    heatInterval(11);
+}, 1000);
+*/
 
 export default App;

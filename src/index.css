@@ -6,12 +6,19 @@
   width:26px;
   border-style:solid;
   border-width:1px;
-  border-color:black;
   margin: 1px 1px 1px 1px;
   background-color:#000;
   color:#FFF;
   display:inline;
   float:left;
+}
+
+.redBorder {
+  border-color: red;
+}
+
+.blackBorder {
+  border-color: black;
 }
 
 .row {
