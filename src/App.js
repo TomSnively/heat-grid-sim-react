@@ -59,6 +59,13 @@ class App extends Component {
     }
 
     heatInterval(size, grid, intervalSpeed, heatIncrease) {
+        // Set the time for the next update.
+        window.setTimeout(function(){
+            console.log('intervalSpeed', this.state.intervalSpeed);
+            this.heatInterval(size, grid, intervalSpeed, heatIncrease);
+        }.bind(this), 1000 / this.state.intervalSpeed);
+
+
         console.log ('in heatInterval');
         for (let i = 1; i <= size; i++) {
             for (let j = 1; j <= size; j++) {
@@ -94,18 +101,12 @@ class App extends Component {
                 //let cell = document.getElementById(cellID);
                 //cell.style.backgroundColor = color;
                 //cell.style.color = textColor;
-
-                this.setState({
-                    cellArrays: grid
-                });
             }
         }
 
-        // Set the time for the next update.
-        window.setTimeout(function(){
-            console.log('intervalSpeed', this.state.intervalSpeed);
-            this.heatInterval(size, grid, intervalSpeed, heatIncrease);
-        }.bind(this), 1000 / this.state.intervalSpeed);
+        this.setState({
+            cellArrays: grid
+        });
 
     }
 
@@ -116,11 +117,29 @@ class App extends Component {
         //this.state = {gridSize: size};
         //console.log('after', this.state.gridSize);
 
+        let maxHeat;
+        if(size === 17) {
+            maxHeat = 70;
+        } else if (size === 13) {
+            maxHeat = 42.5;
+        } else if (size === 11) {
+            maxHeat = 31;
+        } else if (size === 7) {
+            maxHeat = 13.3;
+        } else if (size === 5) {
+            maxHeat = 7.1;
+        } else if (size === 3) {
+            maxHeat = 2.7;
+        } else {
+            console.log ('sizeChecked: invalid size');
+        }
+
         let cellArrays = initializeGridData(size);
 
         this.setState({
             gridSize: size,
-            cellArrays: cellArrays
+            cellArrays: cellArrays,
+            maxHeat: maxHeat
         });
     }
 
