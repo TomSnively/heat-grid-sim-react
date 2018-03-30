@@ -192,7 +192,7 @@ class App extends Component {
                     turnAllOff={this.turnAllOff}
                     speedChanged={this.speedChanged}
                 />
-                <Grid gridSize={this.state.gridSize} cellArrays={this.state.cellArrays}  />
+                <Grid gridSize={this.state.gridSize} cellArrays={this.state.cellArrays} maxHeat={this.state.maxHeat} />
 
             </div>
         );

@@ -5,7 +5,7 @@ class Grid extends Component {
     render() {
         let rows = [];
         for (let i=1; i<=this.props.gridSize; i++) {
-            rows.push(<Row rowNumber={i} key={i} gridSize={this.props.gridSize} cellArrays={this.props.cellArrays}/>);
+            rows.push(<Row rowNumber={i} key={i} gridSize={this.props.gridSize} cellArrays={this.props.cellArrays} maxHeat={this.props.maxHeat}/>);
         }
 
         return (

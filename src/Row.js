@@ -17,7 +17,7 @@ class Row extends Component {
             const cellSelected =  this.props.cellArrays[this.props.rowNumber][i].selected;
 
             //console.log(cellTemperature);
-            cells.push(<Cell key={i} temperature={cellTemperature} selected={cellSelected} />);
+            cells.push(<Cell key={i} temperature={cellTemperature} selected={cellSelected} maxHeat={this.props.maxHeat}/>);
         }
             // rowNumber={this.props.rowNumber}
 
