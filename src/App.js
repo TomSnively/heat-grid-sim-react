@@ -3,6 +3,7 @@ import './App.css';
 import Header from './Header';
 import Inputs from './Inputs';
 import Grid from './Grid';
+import TotalHeat from './TotalHeat';
 
 function initializeGridData(size) {
     //console.log('initializeGridData, size = ', size);
@@ -37,7 +38,8 @@ class App extends Component {
             intervalSpeed: 5,
             maxHeat: 31,
             timerRunning: false,
-            setTimeoutId: null
+            setTimeoutId: null,
+            totalHeat: 0
         };
 
         let cellArrays = [];
@@ -91,9 +93,17 @@ class App extends Component {
             }
         }
 
+        let totalHeat = 0;
+        for (let i = 1; i <= size; i++) {
+            for (let j = 1; j <= size; j++) {
+                totalHeat += grid[i][j].temperature;
+            }
+        }
+
         this.setState({
             cellArrays: grid,
-            setTimeoutId: setTimeoutId
+            setTimeoutId: setTimeoutId,
+            totalHeat: Math.round(totalHeat)/10
         });
 
     }
@@ -175,7 +185,7 @@ class App extends Component {
 
     speedChanged(){
         //console.log('in speedChanged');
-        //console.log(this.state.intervalSpeed);
+        console.log(this.state.intervalSpeed);
         let intervalSpeed = document.getElementById('intervalSpeed').value;
 
         this.setState({
@@ -220,7 +230,7 @@ class App extends Component {
                     maxHeat={this.state.maxHeat}
                     cellClicked={this.cellClicked}
                 />
-
+                <TotalHeat totalHeat={this.state.totalHeat} />
             </div>
         );
     }
