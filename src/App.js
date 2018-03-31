@@ -103,7 +103,7 @@ class App extends Component {
         this.setState({
             cellArrays: grid,
             setTimeoutId: setTimeoutId,
-            totalHeat: Math.round(totalHeat)/10
+            totalHeat: Math.round(totalHeat*10)/10
         });
 
     }
@@ -127,7 +127,7 @@ class App extends Component {
         } else if (size === 5) {
             maxHeat = 7.1;
         } else if (size === 3) {
-            maxHeat = 2.7;
+            maxHeat = 2.8;
         } else {
             console.log ('sizeChecked: invalid size');
         }
