@@ -49,24 +49,18 @@ class App extends Component {
         this.speedChanged = this.speedChanged.bind(this);
         this.heatInterval = this.heatInterval.bind(this);
 
-        //console.log('do we have state intervalSpeed?', this.state.intervalSpeed);
-
-        // set the first setTimeout. Each subsequent one gets set in the updateGridHTML function.
-//        window.setTimeout(function(){
-//            heatInterval(this.state.gridSize, this.state.cellArrays, this.state.intervalSpeed);
-//            //updateGridHTML(this.state.gridSize);
-//        }, 1000 / this.state.intervalSpeed);
+        this.cellClicked = this.cellClicked.bind(this);
     }
 
     heatInterval(size, grid, intervalSpeed, heatIncrease) {
         // Set the time for the next update.
         window.setTimeout(function(){
-            console.log('intervalSpeed', this.state.intervalSpeed);
+            //console.log('intervalSpeed', this.state.intervalSpeed);
             this.heatInterval(size, grid, intervalSpeed, heatIncrease);
         }.bind(this), 1000 / this.state.intervalSpeed);
 
 
-        console.log ('in heatInterval');
+        //console.log ('in heatInterval');
         for (let i = 1; i <= size; i++) {
             for (let j = 1; j <= size; j++) {
                 // First, increase temperature for all selected by 1 degree.
@@ -182,6 +176,17 @@ class App extends Component {
         });
     }
 
+    cellClicked(row, cell){
+        console.log('cell clicked, row cell', row, cell);
+
+        let grid = this.state.cellArrays;
+        //console.log(grid[row][cell]);
+        grid[row][cell].selected = !grid[row][cell].selected;
+        this.setState({
+            cellArrays: grid
+        })
+    }
+
     render() {
         return (
             <div className='container'>
@@ -192,7 +197,12 @@ class App extends Component {
                     turnAllOff={this.turnAllOff}
                     speedChanged={this.speedChanged}
                 />
-                <Grid gridSize={this.state.gridSize} cellArrays={this.state.cellArrays} maxHeat={this.state.maxHeat} />
+                <Grid
+                    gridSize={this.state.gridSize}
+                    cellArrays={this.state.cellArrays}
+                    maxHeat={this.state.maxHeat}
+                    cellClicked={this.cellClicked}
+                />
 
             </div>
         );

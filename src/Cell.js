@@ -29,7 +29,8 @@ class Cell extends Component {
         const classes = `cell ${borderColor} ${backgroundColor} ${color}`;
 
         return (
-            <div className={classes}>
+            <div className={classes} onClick={() =>
+            {this.props.cellClicked(this.props.rowNumber, this.props.cellNumber)}}>
                 {Math.round(this.props.temperature*10)/10}
             </div>
         );
