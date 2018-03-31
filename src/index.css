@@ -1,83 +1,91 @@
 .cell {
-  font-size: 12px;
-  text-align: center;
-  line-height: 26px;
-  height:26px;
-  width:26px;
-  border-style:solid;
-  border-width:1px;
-  margin: 1px 1px 1px 1px;
-  background-color:#000;
-  color:#FFF;
-  display:inline;
-  float:left;
+    font-size: 12px;
+    text-align: center;
+    line-height: 26px;
+    height:26px;
+    width:26px;
+    border-style:solid;
+    border-width:1px;
+    margin: 1px 1px 1px 1px;
+    background-color:#000;
+    color:#FFF;
+    display:inline;
+    float:left;
 }
 
 .redBorder {
-  border-color: red;
+    border-color: red;
 }
 
 .blackBorder {
-  border-color: black;
+    border-color: black;
 }
 
 .row {
-  clear:both;
+    clear:both;
 }
 
 
 #grid {
-  margin: 20px;
+    margin: 20px;
 }
 
 .heatColor0 {
-  background-color: rgb(0, 0, 0);
+    background-color: rgb(0, 0, 0);
 }
 
 .heatColor1 {
-  background-color: rgb(99, 17, 0);
+    background-color: rgb(99, 17, 0);
 }
 
 .heatColor2 {
-  background-color: rgb(153, 33, 0);
+    background-color: rgb(153, 33, 0);
 }
 
 .heatColor3 {
-  background-color: rgb(198, 14, 0);
+    background-color: rgb(198, 14, 0);
 }
 
 .heatColor4 {
-  background-color: rgb(252, 66, 0);
+    background-color: rgb(252, 66, 0);
 }
 
 .heatColor5 {
-  background-color: rgb(252, 79, 0);
+    background-color: rgb(252, 79, 0);
 }
 
 .heatColor6 {
-  background-color: rgb(252, 92, 0);
+    background-color: rgb(252, 92, 0);
 }
 
 .heatColor7 {
-  background-color: rgb(252, 102, 0);
+    background-color: rgb(252, 102, 0);
 }
 
 .heatColor8 {
-  background-color: rgb(252, 113, 0);
+    background-color: rgb(252, 113, 0);
 }
 
 .heatColor9 {
-  background-color: rgb(252, 148, 0);
+    background-color: rgb(252, 148, 0);
 }
 
 .heatColor10 {
-  background-color: rgb(252, 183, 0);
+    background-color: rgb(252, 183, 0);
 }
 
 .heatColor11 {
-  background-color: rgb(252, 207, 0);
+    background-color: rgb(252, 207, 0);
 }
 
 .heatColor12 {
-  background-color: rgb(252, 228, 0);
+    background-color: rgb(252, 228, 0);
+}
+
+.textColor0 {
+    color: white;
+}
+
+.textColor1 {
+    color: black;
 }
