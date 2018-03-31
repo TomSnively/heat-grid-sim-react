@@ -5,7 +5,7 @@ import Inputs from './Inputs';
 import Grid from './Grid';
 
 function initializeGridData(size) {
-    console.log('initializeGridData, size = ', size);
+    //console.log('initializeGridData, size = ', size);
 
     // initialize a 2-dimensional array
     let grid = new Array(size + 1);
@@ -35,7 +35,9 @@ class App extends Component {
             gridSize: 11,
             heatIncrease: 1,
             intervalSpeed: 5,
-            maxHeat: 31
+            maxHeat: 31,
+            timerRunning: false,
+            setTimeoutId: null
         };
 
         let cellArrays = [];
@@ -54,11 +56,10 @@ class App extends Component {
 
     heatInterval(size, grid, intervalSpeed, heatIncrease) {
         // Set the time for the next update.
-        window.setTimeout(function(){
+        let setTimeoutId = window.setTimeout(function(){
             //console.log('intervalSpeed', this.state.intervalSpeed);
             this.heatInterval(size, grid, intervalSpeed, heatIncrease);
         }.bind(this), 1000 / this.state.intervalSpeed);
-
 
         //console.log ('in heatInterval');
         for (let i = 1; i <= size; i++) {
@@ -87,27 +88,20 @@ class App extends Component {
                     grid[i+1][j].lasttemp +
                     grid[i+1][j+1].lasttemp
                 ) / 9;
-
-                //let color = colorChooser(grid[i][j].temperature, maxHeat);
-                //let textColor = colorChooserText(grid[i][j].temperature, maxHeat);
-                //let cellID = 'r' + i + '-' + j;
-                //console.log(cellID);
-                //let cell = document.getElementById(cellID);
-                //cell.style.backgroundColor = color;
-                //cell.style.color = textColor;
             }
         }
 
         this.setState({
-            cellArrays: grid
+            cellArrays: grid,
+            setTimeoutId: setTimeoutId
         });
 
     }
 
 
     sizeChecked(size){
-        console.log('in sizeChecked, size', size);
-        console.log('before', this.state.gridSize);
+        //console.log('in sizeChecked, size', size);
+        //console.log('before', this.state.gridSize);
         //this.state = {gridSize: size};
         //console.log('after', this.state.gridSize);
 
@@ -130,16 +124,23 @@ class App extends Component {
 
         let cellArrays = initializeGridData(size);
 
+        if (this.state.timerRunning){
+            console.log('turning off the timer');
+            clearTimeout(this.state.setTimeoutId);
+        }
+
         this.setState({
             gridSize: size,
             cellArrays: cellArrays,
-            maxHeat: maxHeat
+            maxHeat: maxHeat,
+            timerRunning: false,
+            setTimeoutId: null
         });
     }
 
     setAllSelected(boolean){
-        console.log('in turnAllOn/Off');
-        console.log(this.state.cellArrays);
+        //console.log('in turnAllOn/Off');
+        //console.log(this.state.cellArrays);
 
         let size = this.state.gridSize;
         let grid = this.state.cellArrays;
@@ -153,22 +154,28 @@ class App extends Component {
             cellArrays: grid
         });
 
-        this.heatInterval(this.state.gridSize, this.state.cellArrays, this.state.intervalSpeed, this.state.heatIncrease);
+        if (!this.state.timerRunning){
+            console.log('timer is not running, we are starting it now');
+            this.heatInterval(this.state.gridSize, this.state.cellArrays, this.state.intervalSpeed, this.state.heatIncrease);
+            this.setState({
+                timerRunning: true
+            });
+        }
     }
 
     turnAllOff(){
-        console.log('in turnAllOff');
+        //console.log('in turnAllOff');
         this.setAllSelected(false);
     }
 
     turnAllOn(){
-        console.log('in turnAllOn');
+        //console.log('in turnAllOn');
         this.setAllSelected(true);
     }
 
     speedChanged(){
-        console.log('in speedChanged');
-        console.log(this.state.intervalSpeed);
+        //console.log('in speedChanged');
+        //console.log(this.state.intervalSpeed);
         let intervalSpeed = document.getElementById('intervalSpeed').value;
 
         this.setState({
@@ -177,14 +184,24 @@ class App extends Component {
     }
 
     cellClicked(row, cell){
-        console.log('cell clicked, row cell', row, cell);
+        //console.log('cell clicked, row cell', row, cell);
 
         let grid = this.state.cellArrays;
         //console.log(grid[row][cell]);
         grid[row][cell].selected = !grid[row][cell].selected;
         this.setState({
             cellArrays: grid
-        })
+        });
+
+        if (!this.state.timerRunning){
+            //console.log(this.state);
+            console.log('timer is not running, we are starting it now');
+            this.heatInterval(this.state.gridSize, this.state.cellArrays, this.state.intervalSpeed, this.state.heatIncrease);
+            this.setState({
+                timerRunning: true
+            });
+
+        }
     }
 
     render() {
@@ -208,12 +225,5 @@ class App extends Component {
         );
     }
 }
-
-/*
-// set the first setTimeout. Each subsequent one gets set in the updateGridHTML function.
-window.setTimeout(function(){
-    heatInterval(11);
-}, 1000);
-*/
 
 export default App;
