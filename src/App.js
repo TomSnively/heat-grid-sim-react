@@ -121,7 +121,7 @@ class App extends Component {
         } else if (size === 13) {
             maxHeat = 42.5;
         } else if (size === 11) {
-            maxHeat = 31;
+            maxHeat = 31.0;
         } else if (size === 7) {
             maxHeat = 13.3;
         } else if (size === 5) {
