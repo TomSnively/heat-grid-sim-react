@@ -117,15 +117,15 @@ class App extends Component {
 
         let maxHeat;
         if(size === 17) {
-            maxHeat = 70;
+            maxHeat = 70.9;
         } else if (size === 13) {
             maxHeat = 42.5;
         } else if (size === 11) {
             maxHeat = 31.0;
         } else if (size === 7) {
-            maxHeat = 13.3;
+            maxHeat = 13.4;
         } else if (size === 5) {
-            maxHeat = 7.1;
+            maxHeat = 7.2;
         } else if (size === 3) {
             maxHeat = 2.8;
         } else {
