@@ -6,7 +6,7 @@ class Inputs extends Component {
     render() {
         return (
             <div className="panel panel-default">
-                <p>Choose the grid size; resizing will start over.
+                <p>Choose your preferred grid size. (Resizing the grid will restart the simulator.)
                     <label className="radio-inline">
                         <input type="radio" name="gridSize" value="3" onClick={() => {this.props.sizeChecked(3)}} /> 3x3
                     </label>
