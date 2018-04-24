@@ -14,9 +14,13 @@ class Grid extends Component {
             />);
         }
 
+        let divStyle = {
+            width: this.props.gridSize * 30,
+            height: this.props.gridSize * 30
+        };
         return (
             <div className="table-responsive">
-                <div id="grid">
+                <div id="grid" style={divStyle}>
                     {rows}
                 </div>
             </div>
