@@ -17,7 +17,7 @@ class Header extends Component {
                 <p>Note that heat dissipates and is lost off the edge of the grid.</p>
                 <p>As the heat for a particular cell increases, its background color changes. For this color pattern I mimicked the heat colors which actually occur when <a href="http://www.blksmth.com/heat_colors.htm">mild steel</a> is heated.</p>
                 <p>Heat Grid Simulator is a useful coding challenge for learning front end frameworks. This was developed first in <a href="../heat-grid-js/">vanilla JavaScript</a>,
-                    next using React, and finally using <a href="../heat-grid-js/">Angular</a>.</p>
+                    next using React, and finally using <a href="../heat-grid-angular/">Angular</a>.</p>
                 <h3>How to Use Heat Grid Simulator</h3>
                 <p>Click/tap on a cell (a square in the grid below) to select it and add one degree of heat to that cell per heat interval.
                     (Selected cells are indicated by red borders.) You have the option to heat as many or as few of the cells as you like.</p>
