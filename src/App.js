@@ -6,8 +6,6 @@ import Grid from './Grid';
 import TotalHeat from './TotalHeat';
 
 function initializeGridData(size) {
-    //console.log('initializeGridData, size = ', size);
-
     // initialize a 2-dimensional array
     let grid = new Array(size + 1);
     for (let i=0; i <= size + 1; i++) {
@@ -16,7 +14,6 @@ function initializeGridData(size) {
 
 // the grid is going to go from 0 to gridsize+1.
 // The 0 row and column and gridsize+1 row and column will have temperature 0, and never change.
-    //console.log ('initializing grid data...');
     for (let i=0; i <= size + 1; i++) {
         for (let j=0; j <= size + 1; j++) {
             grid[i][j] = {};
@@ -59,11 +56,9 @@ class App extends Component {
     heatInterval(size, grid, intervalSpeed, heatIncrease) {
         // Set the time for the next update.
         let setTimeoutId = window.setTimeout(function(){
-            //console.log('intervalSpeed', this.state.intervalSpeed);
             this.heatInterval(size, grid, intervalSpeed, heatIncrease);
         }.bind(this), 1000 / this.state.intervalSpeed);
 
-        //console.log ('in heatInterval');
         for (let i = 1; i <= size; i++) {
             for (let j = 1; j <= size; j++) {
                 // First, increase temperature for all selected by 1 degree.
@@ -110,11 +105,6 @@ class App extends Component {
 
 
     sizeChecked(size){
-        //console.log('in sizeChecked, size', size);
-        //console.log('before', this.state.gridSize);
-        //this.state = {gridSize: size};
-        //console.log('after', this.state.gridSize);
-
         let maxHeat;
         if(size === 17) {
             maxHeat = 70.9;
@@ -135,7 +125,6 @@ class App extends Component {
         let cellArrays = initializeGridData(size);
 
         if (this.state.timerRunning){
-            console.log('turning off the timer');
             clearTimeout(this.state.setTimeoutId);
         }
 
@@ -149,9 +138,6 @@ class App extends Component {
     }
 
     setAllSelected(boolean){
-        //console.log('in turnAllOn/Off');
-        //console.log(this.state.cellArrays);
-
         let size = this.state.gridSize;
         let grid = this.state.cellArrays;
         for (let i=1; i <= size; i++) {
@@ -165,7 +151,6 @@ class App extends Component {
         });
 
         if (!this.state.timerRunning){
-            console.log('timer is not running, we are starting it now');
             this.heatInterval(this.state.gridSize, this.state.cellArrays, this.state.intervalSpeed, this.state.heatIncrease);
             this.setState({
                 timerRunning: true
@@ -174,18 +159,14 @@ class App extends Component {
     }
 
     turnAllOff(){
-        //console.log('in turnAllOff');
         this.setAllSelected(false);
     }
 
     turnAllOn(){
-        //console.log('in turnAllOn');
         this.setAllSelected(true);
     }
 
     speedChanged(){
-        //console.log('in speedChanged');
-        console.log(this.state.intervalSpeed);
         let intervalSpeed = document.getElementById('intervalSpeed').value;
 
         this.setState({
@@ -194,18 +175,13 @@ class App extends Component {
     }
 
     cellClicked(row, cell){
-        //console.log('cell clicked, row cell', row, cell);
-
         let grid = this.state.cellArrays;
-        //console.log(grid[row][cell]);
         grid[row][cell].selected = !grid[row][cell].selected;
         this.setState({
             cellArrays: grid
         });
 
         if (!this.state.timerRunning){
-            //console.log(this.state);
-            console.log('timer is not running, we are starting it now');
             this.heatInterval(this.state.gridSize, this.state.cellArrays, this.state.intervalSpeed, this.state.heatIncrease);
             this.setState({
                 timerRunning: true
